@@ -1,0 +1,70 @@
+[gd_scene load_steps=3 format=3 uid="uid://1kr4u4rgq43g"]
+
+[ext_resource type="Script" path="res://scripts/nodes/main_menu.gd" id="1_d3cpv"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_mfrbd"]
+font_size = 32
+
+[node name="MainMenu" type="Control" node_paths=PackedStringArray("container_main", "container_class_select", "container_select_box")]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_d3cpv")
+container_main = NodePath("Main")
+container_class_select = NodePath("ClassSelect")
+container_select_box = NodePath("ClassSelect/PanelContainer/Vert/PanelContainer/NodeSelectBox")
+
+[node name="Main" type="CenterContainer" parent="."]
+visible = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+metadata/_edit_group_ = true
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Main"]
+custom_minimum_size = Vector2(200, 0)
+layout_mode = 2
+
+[node name="StartButton" type="Button" parent="Main/VBoxContainer"]
+layout_mode = 2
+text = "Start a Run"
+
+[node name="QuitButton" type="Button" parent="Main/VBoxContainer"]
+layout_mode = 2
+text = "Quit"
+
+[node name="ClassSelect" type="CenterContainer" parent="."]
+visible = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="PanelContainer" type="PanelContainer" parent="ClassSelect"]
+layout_mode = 2
+
+[node name="Vert" type="VBoxContainer" parent="ClassSelect/PanelContainer"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="ClassSelect/PanelContainer/Vert"]
+layout_mode = 2
+text = "Choose your Character"
+label_settings = SubResource("LabelSettings_mfrbd")
+
+[node name="PanelContainer" type="PanelContainer" parent="ClassSelect/PanelContainer/Vert"]
+layout_mode = 2
+
+[node name="NodeSelectBox" type="VBoxContainer" parent="ClassSelect/PanelContainer/Vert/PanelContainer"]
+custom_minimum_size = Vector2(0, 200)
+layout_mode = 2
+
+[connection signal="pressed" from="Main/VBoxContainer/StartButton" to="." method="_on_start_button_pressed"]
+[connection signal="pressed" from="Main/VBoxContainer/QuitButton" to="." method="_on_quit_button_pressed"]

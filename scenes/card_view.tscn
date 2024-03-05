@@ -1,0 +1,94 @@
+[gd_scene load_steps=8 format=3 uid="uid://c0g663b4m8il5"]
+
+[ext_resource type="Script" path="res://scripts/nodes/card_view.gd" id="1_45lnd"]
+[ext_resource type="Texture2D" uid="uid://dkjkvqysilnpm" path="res://images/ui/panel_ui_skinny_black.png" id="2_sl6e7"]
+[ext_resource type="Texture2D" uid="uid://du51nfdqsmcpr" path="res://images/ui/panel_ui_skinny_black_hovered.png" id="3_va4xu"]
+[ext_resource type="Texture2D" uid="uid://b8qrf5txv58co" path="res://images/ui/panel_ui_skinny_black_focused.png" id="4_rcjw4"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_pyfh3"]
+font_size = 18
+
+[sub_resource type="LabelSettings" id="LabelSettings_ue0cm"]
+font_size = 12
+
+[sub_resource type="LabelSettings" id="LabelSettings_brebp"]
+
+[node name="CardView" type="Control" node_paths=PackedStringArray("sprite", "label_title", "label_cost", "label_rules_text")]
+custom_minimum_size = Vector2(180, 200)
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+script = ExtResource("1_45lnd")
+sprite = NodePath("Margin/Sprite")
+label_title = NodePath("Margin/MarginContainer/Vert/TitleLabel")
+label_cost = NodePath("Margin/MarginContainer/Vert/CostLabel")
+label_rules_text = NodePath("Margin/MarginContainer/Vert/RulesText")
+texture_normal = ExtResource("2_sl6e7")
+texture_hover = ExtResource("3_va4xu")
+texture_select = ExtResource("4_rcjw4")
+
+[node name="Margin" type="MarginContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Sprite" type="NinePatchRect" parent="Margin"]
+layout_mode = 2
+texture = ExtResource("2_sl6e7")
+region_rect = Rect2(5, 4, 38, 40)
+patch_margin_left = 4
+patch_margin_top = 4
+patch_margin_right = 4
+patch_margin_bottom = 4
+
+[node name="MarginContainer" type="MarginContainer" parent="Margin"]
+layout_mode = 2
+theme_override_constants/margin_left = 8
+theme_override_constants/margin_top = 8
+theme_override_constants/margin_right = 8
+theme_override_constants/margin_bottom = 8
+
+[node name="Vert" type="VBoxContainer" parent="Margin/MarginContainer"]
+layout_mode = 2
+
+[node name="TitleLabel" type="Label" parent="Margin/MarginContainer/Vert"]
+layout_mode = 2
+text = "Title"
+label_settings = SubResource("LabelSettings_pyfh3")
+horizontal_alignment = 1
+vertical_alignment = 1
+text_overrun_behavior = 3
+uppercase = true
+
+[node name="HSeparator2" type="HSeparator" parent="Margin/MarginContainer/Vert"]
+layout_mode = 2
+mouse_filter = 2
+
+[node name="CostLabel" type="Label" parent="Margin/MarginContainer/Vert"]
+custom_minimum_size = Vector2(150, 0)
+layout_mode = 2
+text = "Cost"
+label_settings = SubResource("LabelSettings_ue0cm")
+horizontal_alignment = 1
+vertical_alignment = 1
+autowrap_mode = 3
+
+[node name="HSeparator" type="HSeparator" parent="Margin/MarginContainer/Vert"]
+layout_mode = 2
+mouse_filter = 2
+
+[node name="RulesText" type="Label" parent="Margin/MarginContainer/Vert"]
+custom_minimum_size = Vector2(150, 0)
+layout_mode = 2
+size_flags_vertical = 3
+text = "Card text line 1. Card text line 2. Card text line 3. Card text line 4."
+label_settings = SubResource("LabelSettings_brebp")
+autowrap_mode = 3
+
+[connection signal="gui_input" from="." to="." method="_on_gui_input"]
+[connection signal="mouse_entered" from="." to="." method="_on_body_mouse_entered"]
+[connection signal="mouse_exited" from="." to="." method="_on_body_mouse_exited"]

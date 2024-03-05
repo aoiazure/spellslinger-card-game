@@ -1,0 +1,24 @@
+[gd_scene load_steps=2 format=3 uid="uid://c4yrxxotd2eec"]
+
+[ext_resource type="Script" path="res://scripts/nodes/hand_viewer.gd" id="1_ao10n"]
+
+[node name="HandView" type="ScrollContainer" node_paths=PackedStringArray("container")]
+custom_minimum_size = Vector2(0, 210)
+anchors_preset = 12
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 0
+size_flags_horizontal = 3
+size_flags_vertical = 8
+follow_focus = true
+vertical_scroll_mode = 0
+script = ExtResource("1_ao10n")
+container = NodePath("Container")
+
+[node name="Container" type="HBoxContainer" parent="."]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme_override_constants/separation = 4

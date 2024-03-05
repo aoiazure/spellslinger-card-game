@@ -1,0 +1,99 @@
+[gd_scene load_steps=8 format=3 uid="uid://714hkvsqkvtl"]
+
+[ext_resource type="Script" path="res://scripts/game.gd" id="1_5u7fi"]
+[ext_resource type="Script" path="res://scripts/game_loop.gd" id="2_s1c3s"]
+[ext_resource type="Script" path="res://scripts/nodes/combat_loop.gd" id="4_65ved"]
+[ext_resource type="PackedScene" uid="uid://1kr4u4rgq43g" path="res://scenes/main_menu.tscn" id="5_a01r0"]
+[ext_resource type="PackedScene" uid="uid://c6x1tovax1p1y" path="res://scenes/zone_viewer.tscn" id="5_f8kxr"]
+[ext_resource type="PackedScene" uid="uid://b2uy80s5drju1" path="res://scenes/combat_ui.tscn" id="5_nn5c4"]
+[ext_resource type="PackedScene" uid="uid://henjobwrboen" path="res://scenes/results_screen.tscn" id="5_oi4j2"]
+
+[node name="Game" type="MarginContainer" node_paths=PackedStringArray("main_menu", "game_loop", "results_screen", "zone_viewer", "combat_loop", "combat_ui", "models_holder", "states_holder")]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_5u7fi")
+main_menu = NodePath("MainMenu/MainMenu")
+game_loop = NodePath("GameLoop")
+results_screen = NodePath("Between/ResultsScreen")
+zone_viewer = NodePath("ZoneViewer/ZoneViewer")
+combat_loop = NodePath("CombatLoop")
+combat_ui = NodePath("CombatLoop/CombatUI")
+models_holder = NodePath("CharacterModels")
+states_holder = NodePath("CombatLoop/ClashStates")
+
+[node name="GameLoop" type="Node" parent="."]
+unique_name_in_owner = true
+script = ExtResource("2_s1c3s")
+
+[node name="CharacterModels" type="Node" parent="."]
+unique_name_in_owner = true
+
+[node name="CombatLoop" type="Node" parent="."]
+unique_name_in_owner = true
+script = ExtResource("4_65ved")
+
+[node name="ClashStates" type="Node" parent="CombatLoop"]
+unique_name_in_owner = true
+
+[node name="CombatUI" parent="CombatLoop" instance=ExtResource("5_nn5c4")]
+visible = false
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_right = 0.0
+offset_bottom = 0.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="MainMenu" type="CanvasLayer" parent="."]
+
+[node name="MainMenu" parent="MainMenu" instance=ExtResource("5_a01r0")]
+unique_name_in_owner = true
+
+[node name="Between" type="CanvasLayer" parent="."]
+
+[node name="ResultsScreen" parent="Between" node_paths=PackedStringArray("zone_viewer") instance=ExtResource("5_oi4j2")]
+unique_name_in_owner = true
+visible = false
+zone_viewer = NodePath("../../ZoneViewer/ZoneViewer")
+
+[node name="ZoneViewer" type="CanvasLayer" parent="."]
+
+[node name="ZoneViewer" parent="ZoneViewer" groups=["zone_viewer"] instance=ExtResource("5_f8kxr")]
+unique_name_in_owner = true
+visible = false
+anchors_preset = 0
+anchor_right = 0.0
+anchor_bottom = 0.0
+offset_right = 1280.0
+offset_bottom = 720.0
+grow_horizontal = 1
+grow_vertical = 1
+
+[connection signal="combat_start" from="GameLoop" to="CombatLoop" method="_on_game_loop_combat_start"]
+[connection signal="player_created" from="GameLoop" to="Between/ResultsScreen" method="_on_game_loop_player_created"]
+[connection signal="combat_ended" from="CombatLoop" to="GameLoop" method="_on_combat_loop_combat_ended"]
+[connection signal="combat_ended" from="CombatLoop" to="CombatLoop/CombatUI" method="_on_combat_loop_combat_ended"]
+[connection signal="combat_ended" from="CombatLoop" to="Between/ResultsScreen" method="_on_combat_loop_combat_ended"]
+[connection signal="combat_started" from="CombatLoop" to="CombatLoop/CombatUI" method="_on_combat_loop_combat_started"]
+[connection signal="deck_updated" from="CombatLoop" to="CombatLoop/CombatUI" method="_on_combat_loop_deck_updated"]
+[connection signal="enemy_action_decided" from="CombatLoop" to="CombatLoop/CombatUI" method="_on_combat_loop_enemy_action_decided"]
+[connection signal="enemy_hp_changed" from="CombatLoop" to="CombatLoop/CombatUI" method="_on_combat_loop_enemy_hp_changed"]
+[connection signal="enemy_selected" from="CombatLoop" to="CombatLoop/CombatUI" method="_on_combat_loop_enemy_selected"]
+[connection signal="enemy_statuses_changed" from="CombatLoop" to="CombatLoop/CombatUI" method="_on_combat_loop_enemy_statuses_changed"]
+[connection signal="grave_updated" from="CombatLoop" to="CombatLoop/CombatUI" method="_on_combat_loop_grave_updated"]
+[connection signal="hand_updated" from="CombatLoop" to="CombatLoop/CombatUI" method="_on_combat_loop_hand_updated"]
+[connection signal="limbs_updated" from="CombatLoop" to="CombatLoop/CombatUI" method="_on_combat_loop_limbs_updated"]
+[connection signal="loop_ended" from="CombatLoop" to="CombatLoop/CombatUI" method="_on_combat_loop_loop_ended"]
+[connection signal="loop_started" from="CombatLoop" to="CombatLoop/CombatUI" method="_on_combat_loop_loop_started"]
+[connection signal="mouth_updated" from="CombatLoop" to="CombatLoop/CombatUI" method="_on_combat_loop_mouth_updated"]
+[connection signal="player_hp_changed" from="CombatLoop" to="CombatLoop/CombatUI" method="_on_combat_loop_player_hp_changed"]
+[connection signal="player_statuses_changed" from="CombatLoop" to="CombatLoop/CombatUI" method="_on_combat_loop_player_statuses_changed"]
+[connection signal="card_selected" from="CombatLoop/CombatUI" to="CombatLoop" method="_on_combat_ui_card_selected"]
+[connection signal="request_end_turn" from="CombatLoop/CombatUI" to="CombatLoop" method="_on_combat_ui_request_end_turn"]
+[connection signal="game_start_requested" from="MainMenu/MainMenu" to="." method="_on_main_menu_game_start_requested"]
+[connection signal="continue_requested" from="Between/ResultsScreen" to="GameLoop" method="_on_results_screen_continue_requested"]
+[connection signal="return_requested" from="Between/ResultsScreen" to="MainMenu/MainMenu" method="_on_results_screen_return_requested"]

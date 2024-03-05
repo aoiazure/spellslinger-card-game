@@ -1,0 +1,30 @@
+[gd_scene load_steps=4 format=3 uid="uid://b0lf44bk1pwta"]
+
+[ext_resource type="Script" path="res://scripts/nodes/status_icon.gd" id="1_7bj7d"]
+[ext_resource type="Texture2D" uid="uid://ch3ik0dkqh0en" path="res://images/ui/status_icon.png" id="2_7qk5b"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_p1e5o"]
+font_size = 12
+outline_color = Color(0, 0, 0, 1)
+
+[node name="StatusIcon" type="MarginContainer" node_paths=PackedStringArray("sprite", "label_duration")]
+custom_minimum_size = Vector2(32, 32)
+offset_right = 40.0
+offset_bottom = 40.0
+script = ExtResource("1_7bj7d")
+sprite = NodePath("StatusIcon")
+label_duration = NodePath("DurationLabel")
+
+[node name="StatusIcon" type="TextureRect" parent="."]
+custom_minimum_size = Vector2(32, 32)
+layout_mode = 2
+texture = ExtResource("2_7qk5b")
+
+[node name="DurationLabel" type="Label" parent="."]
+layout_mode = 2
+size_flags_horizontal = 8
+size_flags_vertical = 8
+text = "X"
+label_settings = SubResource("LabelSettings_p1e5o")
+horizontal_alignment = 2
+vertical_alignment = 2

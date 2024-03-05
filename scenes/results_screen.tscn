@@ -1,0 +1,121 @@
+[gd_scene load_steps=3 format=3 uid="uid://henjobwrboen"]
+
+[ext_resource type="Script" path="res://scripts/nodes/results_screen.gd" id="1_ovdsl"]
+[ext_resource type="PackedScene" uid="uid://dm2pborgnv1sf" path="res://scenes/deck.tscn" id="2_ypubq"]
+
+[node name="ResultsScreen" type="Control" node_paths=PackedStringArray("cards_button", "deck", "victory_screen", "loss_screen", "label_loss_details")]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_ovdsl")
+cards_button = NodePath("Victory/PanelContainer/VSplitContainer/VBoxContainer/VBoxContainer/CardsButton")
+deck = NodePath("Deck")
+victory_screen = NodePath("Victory")
+loss_screen = NodePath("Loss")
+label_loss_details = NodePath("Loss/PanelContainer/VBoxContainer/ResultsLabel")
+
+[node name="Victory" type="CenterContainer" parent="."]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="PanelContainer" type="PanelContainer" parent="Victory"]
+custom_minimum_size = Vector2(200, 0)
+layout_mode = 2
+
+[node name="VSplitContainer" type="VSplitContainer" parent="Victory/PanelContainer"]
+layout_mode = 2
+collapsed = true
+dragger_visibility = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Victory/PanelContainer/VSplitContainer"]
+custom_minimum_size = Vector2(0, 175)
+layout_mode = 2
+
+[node name="Label" type="Label" parent="Victory/PanelContainer/VSplitContainer/VBoxContainer"]
+layout_mode = 2
+text = "Battle Complete"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="HSeparator" type="HSeparator" parent="Victory/PanelContainer/VSplitContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Victory/PanelContainer/VSplitContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+alignment = 1
+
+[node name="CardsButton" type="Button" parent="Victory/PanelContainer/VSplitContainer/VBoxContainer/VBoxContainer"]
+layout_mode = 2
+text = "Choose Card Rewards"
+
+[node name="ArtifactsButton" type="Button" parent="Victory/PanelContainer/VSplitContainer/VBoxContainer/VBoxContainer"]
+visible = false
+layout_mode = 2
+text = "Artifact"
+
+[node name="HSeparator2" type="HSeparator" parent="Victory/PanelContainer/VSplitContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="ContinueButton" type="Button" parent="Victory/PanelContainer/VSplitContainer"]
+layout_mode = 2
+text = "Continue"
+
+[node name="Loss" type="CenterContainer" parent="."]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="PanelContainer" type="PanelContainer" parent="Loss"]
+custom_minimum_size = Vector2(200, 0)
+layout_mode = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Loss/PanelContainer"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="Loss/PanelContainer/VBoxContainer"]
+layout_mode = 2
+text = "You Lost..."
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="HSeparator" type="HSeparator" parent="Loss/PanelContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="ResultsLabel" type="Label" parent="Loss/PanelContainer/VBoxContainer"]
+custom_minimum_size = Vector2(175, 0)
+layout_mode = 2
+text = "You died to ____ at room __."
+autowrap_mode = 3
+
+[node name="HSeparator2" type="HSeparator" parent="Loss/PanelContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="BackButton" type="Button" parent="Loss/PanelContainer/VBoxContainer"]
+layout_mode = 2
+text = "Back to Menu"
+
+[node name="Deck" parent="." instance=ExtResource("2_ypubq")]
+layout_mode = 0
+offset_left = 24.0
+offset_top = 21.0
+offset_right = 121.0
+offset_bottom = 118.0
+
+[connection signal="pressed" from="Victory/PanelContainer/VSplitContainer/VBoxContainer/VBoxContainer/CardsButton" to="." method="_on_cards_button_pressed"]
+[connection signal="pressed" from="Victory/PanelContainer/VSplitContainer/ContinueButton" to="." method="_on_continue_button_pressed"]
+[connection signal="pressed" from="Loss/PanelContainer/VBoxContainer/BackButton" to="." method="_on_back_button_pressed"]

@@ -1,0 +1,27 @@
+[gd_scene load_steps=3 format=3 uid="uid://b8gps07qbyqux"]
+
+[ext_resource type="Script" path="res://scripts/nodes/character_select_node.gd" id="1_1lufp"]
+[ext_resource type="Texture2D" uid="uid://rdeb5ral8v6o" path="res://images/ui/deck-icon.png" id="1_kd2d4"]
+
+[node name="CharacterSelect" type="HSplitContainer" node_paths=PackedStringArray("button_character", "button_preview")]
+offset_right = 40.0
+offset_bottom = 40.0
+size_flags_horizontal = 3
+collapsed = true
+dragger_visibility = 2
+script = ExtResource("1_1lufp")
+button_character = NodePath("CharacterButton")
+button_preview = NodePath("PreviewDeckButton")
+
+[node name="CharacterButton" type="Button" parent="."]
+layout_mode = 2
+text = "Character Name"
+
+[node name="PreviewDeckButton" type="Button" parent="."]
+custom_minimum_size = Vector2(43, 0)
+layout_mode = 2
+icon = ExtResource("1_kd2d4")
+expand_icon = true
+
+[connection signal="pressed" from="CharacterButton" to="." method="_on_character_button_pressed"]
+[connection signal="pressed" from="PreviewDeckButton" to="." method="_on_preview_deck_button_pressed"]

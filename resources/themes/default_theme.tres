@@ -1,0 +1,24 @@
+[gd_resource type="Theme" load_steps=7 format=3 uid="uid://mlrda5uhlag2"]
+
+[ext_resource type="Texture2D" uid="uid://e25ht4hlllrr" path="res://images/ui/panel_ui_texture_black.png" id="1_0kebc"]
+[ext_resource type="StyleBox" uid="uid://bl8fxvfn5egmt" path="res://resources/themes/panel_skinny_focused.tres" id="1_a6oqw"]
+[ext_resource type="StyleBox" uid="uid://dw2rwlmy1w4ur" path="res://resources/themes/panel_skinny_hover.tres" id="2_xjwa4"]
+[ext_resource type="StyleBox" uid="uid://dp7g704h5bgcy" path="res://resources/themes/panel_skinny.tres" id="3_qodr2"]
+[ext_resource type="StyleBox" uid="uid://2qpygtgmwnen" path="res://resources/themes/panel_skinny_pressed.tres" id="4_syc5k"]
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_d8h8h"]
+texture = ExtResource("1_0kebc")
+texture_margin_left = 12.0
+texture_margin_top = 12.0
+texture_margin_right = 12.0
+texture_margin_bottom = 12.0
+axis_stretch_horizontal = 1
+axis_stretch_vertical = 1
+region_rect = Rect2(9, 9, 54, 54)
+
+[resource]
+Button/styles/focus = ExtResource("1_a6oqw")
+Button/styles/hover = ExtResource("2_xjwa4")
+Button/styles/normal = ExtResource("3_qodr2")
+Button/styles/pressed = ExtResource("4_syc5k")
+PanelContainer/styles/panel = SubResource("StyleBoxTexture_d8h8h")

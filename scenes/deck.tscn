@@ -1,0 +1,28 @@
+[gd_scene load_steps=4 format=3 uid="uid://dm2pborgnv1sf"]
+
+[ext_resource type="Script" path="res://scripts/nodes/deck_viewer.gd" id="1_02kuj"]
+[ext_resource type="Texture2D" uid="uid://rdeb5ral8v6o" path="res://images/ui/deck-icon.png" id="1_fl828"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_au1te"]
+font_size = 20
+
+[node name="Deck" type="PanelContainer" node_paths=PackedStringArray("label_count")]
+offset_right = 97.0
+offset_bottom = 97.0
+script = ExtResource("1_02kuj")
+label_count = NodePath("Label")
+
+[node name="DeckIcon" type="TextureRect" parent="."]
+layout_mode = 2
+texture = ExtResource("1_fl828")
+expand_mode = 2
+stretch_mode = 5
+
+[node name="Label" type="Label" parent="."]
+layout_mode = 2
+size_flags_vertical = 1
+text = "X"
+label_settings = SubResource("LabelSettings_au1te")
+horizontal_alignment = 2
+
+[connection signal="gui_input" from="." to="." method="_on_gui_input"]
